@@ -31,7 +31,7 @@ void moveZeroes(int* nums, int numsSize) {
     int checked = 0;
     for(int i = 0; i < numsSize; i++) {
         if(nums[i] != 0) {
-            nums[checked++] = nums[i];
+            nums[checked] = nums[i];
             checked++;
         }
     }
