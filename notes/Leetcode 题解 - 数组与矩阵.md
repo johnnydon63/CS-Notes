@@ -26,16 +26,17 @@
 For example, given nums = [0, 1, 0, 3, 12], after calling your function, nums should be [1, 3, 12, 0, 0].
 ```
 
-```java
-public void moveZeroes(int[] nums) {
-    int idx = 0;
-    for (int num : nums) {
-        if (num != 0) {
-            nums[idx++] = num;
+```c
+void moveZeroes(int* nums, int numsSize) { 
+    int checked = 0;
+    for(int i = 0; i < numsSize; i++) {
+        if(nums[i] != 0) {
+            nums[checked++] = nums[i];
+            checked++;
         }
     }
-    while (idx < nums.length) {
-        nums[idx++] = 0;
+    while(checked < numsSize) {
+        nums[checked++] = 0;
     }
 }
 ```
