@@ -61,21 +61,41 @@ Explanation:
 The row-traversing of nums is [1,2,3,4]. The new reshaped matrix is a 1 * 4 matrix, fill it row by row by using the previous list.
 ```
 
-```java
-public int[][] matrixReshape(int[][] nums, int r, int c) {
-    int m = nums.length, n = nums[0].length;
-    if (m * n != r * c) {
-        return nums;
+```c
+/**
+ * Return an array of arrays of size *returnSize.
+ * The sizes of the arrays are returned as *returnColumnSizes array.
+ * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
+ */
+int** matrixReshape(int** mat, int matSize, int* matColSize, int r, int c, int* returnSize, int** returnColumnSizes) {
+    if(matSize * matColSize[0] != r * c) {
+        *returnSize = matSize;
+        *returnColumnSizes = malloc(matSize * sizeof(int));
+        for(int i = 0; i < matSize; i++) {
+            (*returnColumnSizes)[i] = matColSize[0];
+        }
+        return mat;
     }
-    int[][] reshapedNums = new int[r][c];
-    int index = 0;
-    for (int i = 0; i < r; i++) {
-        for (int j = 0; j < c; j++) {
-            reshapedNums[i][j] = nums[index / n][index % n];
-            index++;
+    int* arr = malloc(r * c * sizeof(int));
+    for(int i = 0; i < r * c; i++) {
+        arr[i] = mat[i / matColSize[0]][i % matColSize[0]];
+    }
+    int** out = malloc(r * sizeof(int*));
+    for(int i = 0; i < r; i++) {
+        out[i] = malloc(c * sizeof(int));
+    }
+    for(int i = 0; i < r; i++) {
+        for(int j = 0; j < c; j++) {
+            out[i][j] = arr[i * c + j];
         }
     }
-    return reshapedNums;
+    *returnSize = r;
+    *returnColumnSizes = malloc(r * sizeof(int));
+    for(int i = 0; i < r; i++) {
+        (*returnColumnSizes)[i] = c;
+    }
+    free(arr);
+    return out;
 }
 ```
 
