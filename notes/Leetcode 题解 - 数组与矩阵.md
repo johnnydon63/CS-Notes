@@ -105,12 +105,19 @@ int** matrixReshape(int** mat, int matSize, int* matColSize, int r, int c, int* 
 
 [Leetcode](https://leetcode.com/problems/max-consecutive-ones/description/) / [力扣](https://leetcode-cn.com/problems/max-consecutive-ones/description/)
 
-```java
-public int findMaxConsecutiveOnes(int[] nums) {
-    int max = 0, cur = 0;
-    for (int x : nums) {
-        cur = x == 0 ? 0 : cur + 1;
-        max = Math.max(max, cur);
+```c
+int findMaxConsecutiveOnes(int* nums, int numsSize) {
+    int cnt = 0, max = 0;
+    for(int i = 0; i < numsSize; i++) {
+        if(nums[i] == 1) {
+            cnt++;
+        }
+        else {
+            cnt = 0;
+        }
+        if(cnt > max) {
+            max = cnt;
+        }
     }
     return max;
 }
