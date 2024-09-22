@@ -137,15 +137,18 @@ int findMaxConsecutiveOnes(int* nums, int numsSize) {
 ]
 ```
 
-```java
-public boolean searchMatrix(int[][] matrix, int target) {
-    if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return false;
-    int m = matrix.length, n = matrix[0].length;
-    int row = 0, col = n - 1;
-    while (row < m && col >= 0) {
-        if (target == matrix[row][col]) return true;
-        else if (target < matrix[row][col]) col--;
-        else row++;
+```c
+bool searchMatrix(int** matrix, int matrixSize, int* matrixColSize, int target){
+    int r = matrixSize - 1, c = 0; 
+    if(matrix == NULL)
+        return false;
+    while(r >= 0 && c <= matrixColSize[0] - 1) {
+        if(matrix[r][c] == target)
+            return true;
+        else if(matrix[r][c] < target)
+            c++;
+        else
+            r--;
     }
     return false;
 }
